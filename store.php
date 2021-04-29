@@ -59,7 +59,7 @@ class MyStore {
             return 0;
         }
 
-    }//end getUser
+    } //end getUser
 
 
     public function login(){
@@ -77,11 +77,12 @@ class MyStore {
 
             if ($total > 0) {
 
-                echo "Welcome". $user['first_name']." ".$user['last_name'];
+                // echo "Welcome". $user['first_name']." ".$user['last_name'];
+                header("location: index.php");
 
             } else {
 
-                echo "Log in Failed!"; 
+                echo "<script>alert('Log in Failed!');</script>"; 
 
             }
         }
