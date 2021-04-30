@@ -1,3 +1,14 @@
+        
+        <?php
+        
+          session_start();
+
+          if(!isset($_SESSION['username'])){
+              header('location:login.php');
+              exit;
+          }
+
+        ?>
 
        <?php
          include_once('./inc/header.php');
@@ -6,7 +17,9 @@
 
         <!-- PAGE CONTAINER-->
         <div class="page-container">
+
         <?php include_once('./inc/head-desktop.php');?>
+
             <!-- MAIN CONTENT-->
             <div class="main-content">
                 <div class="section__content section__content--p30">

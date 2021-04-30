@@ -1,5 +1,7 @@
 <?php
 
+
+
 class MyStore {
 
     private $server = "mysql:host=localhost;dbname=mystore";
@@ -13,6 +15,7 @@ class MyStore {
     );
 
     protected $connection;
+
 
     public function openConnection(){
 
@@ -59,15 +62,25 @@ class MyStore {
             return 0;
         }
 
-    } //end getUser
-
-
+    }
+    
+    
     public function login(){
+        
+        session_start();
+        $errors = array();
 
         if(isset($_POST['submit'])){
 
             $username = $_POST['username'];
             $password = $_POST['password'];
+
+            if (empty($username)) {
+                array_push($errors, "* Username is required");
+            }
+            if (empty($password)) {
+                array_push($errors, "* Password is required");
+            }
         
             $connection = $this->openConnection();
             $statement = $connection->prepare("SELECT * FROM  users WHERE email = ? AND password = ? ");
@@ -77,15 +90,21 @@ class MyStore {
 
             if ($total > 0) {
 
+                $_SESSION['username'] = $user;
                 // echo "Welcome". $user['first_name']." ".$user['last_name'];
                 header("location: index.php");
 
             } else {
 
-                echo "<script>alert('Log in Failed!');</script>"; 
+                array_push($errors, "* Wrong username or password combination");
 
             }
         }
+    }
+
+
+    public function register(){
+
     }
 }
 
